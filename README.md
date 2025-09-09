@@ -1,10 +1,12 @@
 # FullscreenX
 
-Fullscreen made simple. Zero-dependency, promise-based fullscreen library for modern browsers.
+> **Fullscreen made simple.** Zero-dependency, promise-based fullscreen library for modern browsers.
 
-[![Size](https://img.shields.io/badge/size-2.2KB-brightgreen)](dist/fullscreenx.min.js)
-[![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
-[![Browser Support](https://img.shields.io/badge/browsers-modern-orange)](##browser-support)
+[![npm version](https://img.shields.io/npm/v/fullscreenx.svg)](https://www.npmjs.com/package/fullscreenx)
+[![npm downloads](https://img.shields.io/npm/dm/fullscreenx.svg)](https://www.npmjs.com/package/fullscreenx)
+[![bundle size](https://img.shields.io/bundlephobia/minzip/fullscreenx)](https://bundlephobia.com/package/fullscreenx)
+[![license](https://img.shields.io/npm/l/fullscreenx.svg)](https://github.com/mahyarsbt/fullscreenx/blob/main/LICENSE)
+[![jsdelivr](https://data.jsdelivr.com/v1/package/npm/fullscreenx/badge?style=rounded)](https://www.jsdelivr.com/package/npm/fullscreenx)
 
 ## Features
 
@@ -17,12 +19,36 @@ Fullscreen made simple. Zero-dependency, promise-based fullscreen library for mo
 - 🛡️ **TypeScript support** - Full type definitions included
 - ⚡ **Smart detection** - Automatic vendor prefix resolution
 
+## Installation
+
+### NPM
+```bash
+npm install fullscreenx
+```
+
+### Yarn
+```bash
+yarn add fullscreenx
+```
+
+### CDN
+```html
+<!-- jsDelivr (Recommended) -->
+<script src="https://cdn.jsdelivr.net/npm/fullscreenx@latest/dist/fullscreenx.min.js"></script>
+
+<!-- UNPKG -->
+<script src="https://unpkg.com/fullscreenx@latest/dist/fullscreenx.min.js"></script>
+
+<!-- Specific version -->
+<script src="https://cdn.jsdelivr.net/npm/fullscreenx@1.0.0/dist/fullscreenx.min.js"></script>
+```
+
 ## Quick Start
 
 ### Browser (Script Tag)
 
 ```html
-<script src="dist/fullscreenx.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullscreenx@latest/dist/fullscreenx.min.js"></script>
 <script>
   // Enter fullscreen
   FullscreenX.request('#my-element').then(() => {
@@ -37,10 +63,14 @@ Fullscreen made simple. Zero-dependency, promise-based fullscreen library for mo
 </script>
 ```
 
-### ES Module (CDN)
+### ES Module
 
 ```javascript
-import FullscreenX from 'https://unpkg.com/fullscreenx/dist/fullscreenx.js';
+// From NPM
+import FullscreenX from 'fullscreenx';
+
+// From CDN
+import FullscreenX from 'https://cdn.skypack.dev/fullscreenx';
 
 await FullscreenX.request('#app');
 ```
@@ -176,9 +206,18 @@ Default timeout is 3 seconds. For custom timeout, modify the source:
 const TIMEOUT_MS = 5000;  // 5 seconds
 ```
 
+## Links
+
+- **NPM Package**: [https://www.npmjs.com/package/fullscreenx](https://www.npmjs.com/package/fullscreenx)
+- **GitHub Repository**: [https://github.com/mahyarsbt/fullscreenx](https://github.com/mahyarsbt/fullscreenx)
+- **Live Demo**: [https://mahyarsbt.github.io/fullscreenx/demo/](https://mahyarsbt.github.io/fullscreenx/demo/)
+- **CDN (jsDelivr)**: [https://www.jsdelivr.com/package/npm/fullscreenx](https://www.jsdelivr.com/package/npm/fullscreenx)
+- **CDN (UNPKG)**: [https://unpkg.com/browse/fullscreenx/](https://unpkg.com/browse/fullscreenx/)
+- **Bundle Size**: [https://bundlephobia.com/package/fullscreenx](https://bundlephobia.com/package/fullscreenx)
+
 ## License
 
-MIT License - see LICENSE file for details.
+MIT License - Copyright (c) 2025 Mahyar SBT
 
 ## Contributing
 
@@ -187,3 +226,17 @@ Contributions welcome! Please ensure:
 - Size stays under 2.5KB minified
 - All vendor prefixes supported
 - Tests pass in demo.html
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
+
+## Author
+
+**Mahyar SBT**
+- GitHub: [@mahyarsbt](https://github.com/mahyarsbt)
+- NPM: [@mahyarsbt](https://www.npmjs.com/~mahyarsbt)
+
+---
+
+<div align="center">
+Made with ❤️ by <a href="https://github.com/mahyarsbt">Mahyar SBT</a>
+</div>
