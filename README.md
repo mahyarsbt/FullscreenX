@@ -5,7 +5,7 @@
 [![npm version](https://img.shields.io/npm/v/fullscreenx.svg)](https://www.npmjs.com/package/fullscreenx)
 [![npm downloads](https://img.shields.io/npm/dm/fullscreenx.svg)](https://www.npmjs.com/package/fullscreenx)
 [![bundle size](https://img.shields.io/bundlephobia/minzip/fullscreenx)](https://bundlephobia.com/package/fullscreenx)
-[![license](https://img.shields.io/npm/l/fullscreenx.svg)](https://github.com/mahyarsbt/fullscreenx/blob/main/LICENSE)
+[![license](https://img.shields.io/npm/l/fullscreenx.svg)](https://github.com/mahyarsbt/FullscreenX/blob/main/LICENSE)
 [![jsdelivr](https://data.jsdelivr.com/v1/package/npm/fullscreenx/badge?style=rounded)](https://www.jsdelivr.com/package/npm/fullscreenx)
 
 ## Features
@@ -209,8 +209,8 @@ const TIMEOUT_MS = 5000;  // 5 seconds
 ## Links
 
 - **NPM Package**: [https://www.npmjs.com/package/fullscreenx](https://www.npmjs.com/package/fullscreenx)
-- **GitHub Repository**: [https://github.com/mahyarsbt/fullscreenx](https://github.com/mahyarsbt/fullscreenx)
-- **Live Demo**: [https://mahyarsbt.github.io/fullscreenx/demo/](https://mahyarsbt.github.io/fullscreenx/demo/)
+- **GitHub Repository**: [https://github.com/mahyarsbt/FullscreenX](https://github.com/mahyarsbt/FullscreenX)
+- **Live Demo**: [https://mahyarsbt.github.io/FullscreenX/demo/](https://mahyarsbt.github.io/FullscreenX/demo/)
 - **CDN (jsDelivr)**: [https://www.jsdelivr.com/package/npm/fullscreenx](https://www.jsdelivr.com/package/npm/fullscreenx)
 - **CDN (UNPKG)**: [https://unpkg.com/browse/fullscreenx/](https://unpkg.com/browse/fullscreenx/)
 - **Bundle Size**: [https://bundlephobia.com/package/fullscreenx](https://bundlephobia.com/package/fullscreenx)

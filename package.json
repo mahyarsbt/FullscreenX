@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mahyarsbt/fullscreenx.git"
+    "url": "git+https://github.com/mahyarsbt/FullscreenX.git"
   },
   "keywords": [
     "fullscreen",
@@ -34,9 +34,9 @@
   "author": "Mahyar SBT",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mahyarsbt/fullscreenx/issues"
+    "url": "https://github.com/mahyarsbt/FullscreenX/issues"
   },
-  "homepage": "https://github.com/mahyarsbt/fullscreenx#readme",
+  "homepage": "https://github.com/mahyarsbt/FullscreenX#readme",
   "engines": {
     "node": ">=10.0.0"
   },
