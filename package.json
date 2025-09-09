@@ -1,6 +1,6 @@
 {
   "name": "fullscreenx",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Fullscreen made simple. Zero-dependency, promise-based fullscreen library for modern browsers",
   "main": "dist/fullscreenx.js",
   "module": "dist/fullscreenx.js",
