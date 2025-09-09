@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FullscreenX Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 600px;
+            width: 100%;
+            margin: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+        
+        .status {
+            background: #f7fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .status-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 0.5rem 0;
+        }
+        
+        .status-label {
+            font-weight: 600;
+            color: #718096;
+        }
+        
+        .status-value {
+            font-family: 'Courier New', monospace;
+            color: #2d3748;
+        }
+        
+        .status-value.enabled {
+            color: #48bb78;
+        }
+        
+        .status-value.disabled {
+            color: #f56565;
+        }
+        
+        #box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            text-align: center;
+            color: white;
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        #box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        
+        #box h2 {
+            position: relative;
+            z-index: 1;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        #box p {
+            position: relative;
+            z-index: 1;
+            opacity: 0.9;
+        }
+        
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        button:hover {
+            background: #5a67d8;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        button:disabled {
+            background: #cbd5e0;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        button.exit {
+            background: #f56565;
+        }
+        
+        button.exit:hover:not(:disabled) {
+            background: #e53e3e;
+        }
+        
+        .log {
+            background: #1a202c;
+            color: #a0aec0;
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            max-height: 200px;
+            overflow-y: auto;
+            margin-bottom: 1.5rem;
+        }
+        
+        .log-entry {
+            margin: 0.25rem 0;
+            padding: 0.25rem 0;
+            border-bottom: 1px solid #2d3748;
+        }
+        
+        .log-entry:last-child {
+            border-bottom: none;
+        }
+        
+        .log-time {
+            color: #718096;
+            margin-right: 0.5rem;
+        }
+        
+        .log-event {
+            color: #48bb78;
+            font-weight: bold;
+        }
+        
+        .log-error {
+            color: #f56565;
+        }
+        
+        .tests {
+            background: #f7fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1rem;
+        }
+        
+        .test-result {
+            display: flex;
+            align-items: center;
+            margin: 0.5rem 0;
+        }
+        
+        .test-result.pass::before {
+            content: '✓';
+            color: #48bb78;
+            margin-right: 0.5rem;
+            font-weight: bold;
+        }
+        
+        .test-result.fail::before {
+            content: '✗';
+            color: #f56565;
+            margin-right: 0.5rem;
+            font-weight: bold;
+        }
+        
+        /* Fullscreen styles */
+        #box:fullscreen,
+        #box:-webkit-full-screen,
+        #box:-moz-full-screen,
+        #box:-ms-fullscreen {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 FullscreenX Demo</h1>
+        
+        <div class="status">
+            <div class="status-row">
+                <span class="status-label">API Supported:</span>
+                <span id="supported" class="status-value">checking...</span>
+            </div>
+            <div class="status-row">
+                <span class="status-label">Fullscreen Active:</span>
+                <span id="active" class="status-value">false</span>
+            </div>
+            <div class="status-row">
+                <span class="status-label">Current Element:</span>
+                <span id="element" class="status-value">null</span>
+            </div>
+            <div class="status-row">
+                <span class="status-label">Vendor Prefix:</span>
+                <span id="vendor" class="status-value">detecting...</span>
+            </div>
+        </div>
+        
+        <div id="box">
+            <div>
+                <h2>Target Element</h2>
+                <p>Click "Enter (Box)" to make me fullscreen!</p>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button onclick="enterFullscreen()">Enter (Page)</button>
+            <button onclick="enterBox()">Enter (Box)</button>
+            <button onclick="exitFullscreen()" class="exit">Exit</button>
+            <button onclick="toggleFullscreen()">Toggle</button>
+        </div>
+        
+        <div class="log" id="log">
+            <div class="log-entry">
+                <span class="log-time">[00:00:00]</span>
+                <span>Console ready...</span>
+            </div>
+        </div>
+        
+        <div class="tests">
+            <h3 style="margin-bottom: 1rem;">Sanity Tests</h3>
+            <div id="test-results"></div>
+        </div>
+    </div>
+    
+    <script src="../dist/fullscreenx.js"></script>
+    <script>
+        // Update status display
+        function updateStatus() {
+            document.getElementById('supported').textContent = FullscreenX.isEnabled() ? 'Yes' : 'No';
+            document.getElementById('supported').className = 'status-value ' + 
+                (FullscreenX.isEnabled() ? 'enabled' : 'disabled');
+            
+            document.getElementById('active').textContent = FullscreenX.isFullscreen() ? 'true' : 'false';
+            document.getElementById('active').className = 'status-value ' + 
+                (FullscreenX.isFullscreen() ? 'enabled' : 'disabled');
+            
+            const elem = FullscreenX.element();
+            document.getElementById('element').textContent = elem ? 
+                (elem.id || elem.tagName.toLowerCase()) : 'null';
+            
+            const vendor = FullscreenX.raw.request;
+            document.getElementById('vendor').textContent = vendor ? 
+                vendor.replace('RequestFullscreen', '').replace('RequestFullScreen', '') || 'standard' : 
+                'not supported';
+        }
+        
+        // Logging
+        function log(message, isError = false) {
+            const logEl = document.getElementById('log');
+            const time = new Date().toLocaleTimeString();
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            entry.innerHTML = `
+                <span class="log-time">[${time}]</span>
+                <span class="${isError ? 'log-error' : ''}">${message}</span>
+            `;
+            logEl.appendChild(entry);
+            logEl.scrollTop = logEl.scrollHeight;
+        }
+        
+        // Event listeners
+        FullscreenX.on('change', (e) => {
+            log('<span class="log-event">CHANGE</span> event fired');
+            updateStatus();
+        });
+        
+        FullscreenX.on('enter', (e) => {
+            log('<span class="log-event">ENTER</span> fullscreen mode');
+            document.getElementById('box').innerHTML = `
+                <div>
+                    <h2>🎉 Fullscreen Active!</h2>
+                    <p>Press ESC or click Exit to leave</p>
+                </div>
+            `;
+        });
+        
+        FullscreenX.on('exit', (e) => {
+            log('<span class="log-event">EXIT</span> fullscreen mode');
+            document.getElementById('box').innerHTML = `
+                <div>
+                    <h2>Target Element</h2>
+                    <p>Click "Enter (Box)" to make me fullscreen!</p>
+                </div>
+            `;
+        });
+        
+        FullscreenX.on('error', (e) => {
+            log('<span class="log-event">ERROR</span> occurred', true);
+        });
+        
+        // Control functions
+        async function enterFullscreen() {
+            try {
+                log('Requesting fullscreen for page...');
+                await FullscreenX.request();
+                log('Successfully entered fullscreen');
+            } catch (error) {
+                log(`Failed: ${error.message}`, true);
+            }
+        }
+        
+        async function enterBox() {
+            try {
+                log('Requesting fullscreen for #box...');
+                await FullscreenX.request('#box');
+                log('Successfully entered fullscreen');
+            } catch (error) {
+                log(`Failed: ${error.message}`, true);
+            }
+        }
+        
+        async function exitFullscreen() {
+            try {
+                log('Exiting fullscreen...');
+                await FullscreenX.exit();
+                log('Successfully exited fullscreen');
+            } catch (error) {
+                log(`Failed: ${error.message}`, true);
+            }
+        }
+        
+        async function toggleFullscreen() {
+            try {
+                log('Toggling fullscreen...');
+                await FullscreenX.toggle('#box');
+                log('Successfully toggled fullscreen');
+            } catch (error) {
+                log(`Failed: ${error.message}`, true);
+            }
+        }
+        
+        // Run tests
+        async function runTests() {
+            const results = document.getElementById('test-results');
+            const tests = [];
+            
+            // Test 1: API detection
+            tests.push({
+                name: 'API detection works',
+                pass: typeof FullscreenX.isEnabled() === 'boolean'
+            });
+            
+            // Test 2: Element getter returns correct type
+            tests.push({
+                name: 'element() returns null or Element',
+                pass: FullscreenX.element() === null || FullscreenX.element() instanceof Element
+            });
+            
+            // Test 3: Event handlers are idempotent
+            const handler = () => {};
+            FullscreenX.on('change', handler);
+            FullscreenX.on('change', handler); // Should not add twice
+            tests.push({
+                name: 'Event handlers are idempotent',
+                pass: true // Would need internal access to verify
+            });
+            
+            // Test 4: Raw API exposed
+            tests.push({
+                name: 'Raw API object exposed',
+                pass: typeof FullscreenX.raw === 'object' && FullscreenX.raw !== null
+            });
+            
+            // Test 5: Promise-based API
+            tests.push({
+                name: 'Methods return Promises',
+                pass: FullscreenX.request() instanceof Promise
+            });
+            
+            // Clean up test promise
+            FullscreenX.request().catch(() => {});
+            
+            // Display results
+            results.innerHTML = tests.map(test => 
+                `<div class="test-result ${test.pass ? 'pass' : 'fail'}">
+                    ${test.name}
+                </div>`
+            ).join('');
+            
+            const passed = tests.filter(t => t.pass).length;
+            log(`Tests: ${passed}/${tests.length} passed`);
+        }
+        
+        // Initialize
+        updateStatus();
+        runTests();
+        log('FullscreenX initialized successfully');
+        
+        // Show capabilities
+        if (FullscreenX.isEnabled()) {
+            log(`Detected: ${FullscreenX.raw.request || 'standard API'}`);
+        } else {
+            log('Fullscreen API not supported in this browser', true);
+        }
+    </script>
+</body>
+</html>

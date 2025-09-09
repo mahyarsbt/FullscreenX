@@ -1,0 +1,49 @@
+{
+  "name": "fullscreenx",
+  "version": "1.0.0",
+  "description": "Fullscreen made simple. Zero-dependency, promise-based fullscreen library for modern browsers",
+  "main": "dist/fullscreenx.js",
+  "module": "dist/fullscreenx.js",
+  "types": "types/index.d.ts",
+  "unpkg": "dist/fullscreenx.min.js",
+  "jsdelivr": "dist/fullscreenx.min.js",
+  "files": [
+    "dist",
+    "types",
+    "src"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "demo": "open demo/index.html",
+    "build": "echo 'No build step required for v1.0.0'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mahyarsbt/fullscreenx.git"
+  },
+  "keywords": [
+    "fullscreen",
+    "fullscreen-api",
+    "browser",
+    "promise",
+    "zero-dependency",
+    "vanilla-js",
+    "umd",
+    "typescript"
+  ],
+  "author": "Mahyar SBT",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mahyarsbt/fullscreenx/issues"
+  },
+  "homepage": "https://github.com/mahyarsbt/fullscreenx#readme",
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "sideEffects": false,
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}

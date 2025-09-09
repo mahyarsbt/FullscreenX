@@ -1,0 +1,31 @@
+# Source control
+.git/
+.github/
+
+# Development
+demo/
+test/
+coverage/
+.nyc_output/
+
+# Config files
+.editorconfig
+.eslintrc*
+.prettierrc*
+.babelrc*
+gulpfile*.js
+webpack.config.js
+rollup.config.js
+
+# Documentation (keep README.md)
+docs/
+*.log
+
+# IDE
+.idea/
+.vscode/
+*.sublime-*
+.DS_Store
+
+# Keep only essential files for npm package
+# dist/, types/, src/, README.md, LICENSE, CHANGELOG.md, package.json
